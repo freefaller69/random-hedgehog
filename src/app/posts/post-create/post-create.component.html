@@ -1,0 +1,16 @@
+<mat-card>
+  <form [formGroup]="createPostForm" (submit)="onSavePost()">
+    <mat-form-field>
+      <textarea
+        matInput
+        class="post-textarea"
+        placeholder="Post your thoughts here..."
+        formControlName="post"
+        ></textarea>
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="accent"
+      type="submit">Save Post</button>
+  </form>
+</mat-card>

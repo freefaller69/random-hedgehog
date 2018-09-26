@@ -1,0 +1,24 @@
+@mixin fade($duration: 2s, $direction: forwards) {
+  animation:
+      fadeIn $duration ease-in $direction,
+      focus $duration ease-in $direction;
+}
+
+@mixin shimmy($direction: forwards, $duration: 2s) {
+  animation:
+    shimmy $duration ease $direction,
+    fadeIn $duration ease-in forwards,
+    focus $duration ease-in forwards;
+
+  -moz-animation:
+    shimmy $duration ease $direction,
+    fadeIn $duration ease-in forwards,
+    focus $duration ease-in forwards;
+}
+
+@mixin riseUp($duration: 2s, $direction: forwards) {
+  animation:
+    riseUp $duration ease-in $direction,
+    fadeIn $duration ease-in $direction,
+    focus $duration ease-in $direction;
+}

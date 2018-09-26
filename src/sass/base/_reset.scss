@@ -1,0 +1,24 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html {
+    font-size: 62.5%;
+    transition: .5s;
+
+    // TODO: Adjust or remove
+    // @media screen and (max-width: 500px) {
+
+    //   font-size: 50%;
+
+    // }
+}
+
+body {
+    box-sizing: border-box;
+    margin: 0 auto;
+}

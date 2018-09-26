@@ -1,0 +1,50 @@
+:root {
+
+  // Typography
+  --base-font-size: 1.4rem;
+  --h2-size: calc(var(--base-font-size) * 2.3);
+
+  // COLORS
+  --white: rgba(255, 255, 255, 1);        // #ffffff
+  --white-2: rgba(244, 244, 244, 1);      // #f4f4f4
+
+  --black: rgba(0, 0, 0, 1);              // #000000
+  --black-02: rgba(20, 20, 20, 1);
+  --black-03: rgba(10, 20, 30, 1);
+  --shadow-black: rgba(0, 0, 0, .3);
+
+  --blue-primary: rgba(35, 18, 182, 1);
+
+  --primary-light: rgba(155, 173, 235, 1);
+  --primary-medium: rgba(86, 100, 134, 1);
+  --primary-dark: rgba(35, 37, 40, 1);
+
+  --back-gradient: linear-gradient(to right bottom, var(--primary-light), var(--primary-medium), var(--primary-dark));
+  --name-gradient: linear-gradient(to right, var(--primary-light), var(--primary-medium), var(--primary-dark));
+}
+
+// COLORS
+$color-primary: #55c57a;
+$color-primary-light: rgb(126, 213, 111);
+$color-primary-dark: rgb(40, 180, 133);
+
+$color-secondary-light: #ffb900;
+$color-secondary-dark: #ff7730;
+
+$color-tertiary-light: #2998ff;
+$color-tertiary-dark: #5643fa;
+
+$color-grey-light-1: #f7f7f7;
+$color-grey-light-2: #eee;
+
+$color-grey-dark: #777;
+$color-grey-dark-2: #999;
+$color-grey-dark-3: #333;
+
+$color-blue: rgb(35, 18, 182);
+$color-black: #000;
+$color-white: #fff;
+
+// FONT
+$default-font-size: 1.6rem;
+

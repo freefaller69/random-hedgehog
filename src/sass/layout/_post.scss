@@ -1,0 +1,15 @@
+.post {
+  min-width: 30ch;
+  max-width: 60ch;
+  margin-top: 1rem;
+
+  &__header {
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__content {
+    padding: 1.5rem 2.5rem;
+  }
+}

@@ -1,0 +1,42 @@
+// .btn {
+//   &,
+//   &:link,
+//   &:visited {
+//     text-transform: uppercase;
+//     text-decoration: none;
+//     padding: .5rem 1rem;
+//     display: inline-block;
+//     border-radius: 0.5rem;
+//     transition: all .2s;
+//     position: relative;
+//     font-size: 1.3rem;
+
+//     border: none;
+//     cursor: pointer;
+//   }
+
+//   &:hover {
+//     transform: translateY(-3px);
+//     box-shadow: 0 1rem 1.5rem var(--shadow-black);
+//     &::after {
+//       transform: scaleX(1.2) scaleY(1.4);
+//       opacity: 0;
+//     }
+//   }
+
+//   &:active,
+//   &:focus {
+//     outline: none;
+//     transform: translateY(-1px);
+//     box-shadow: 0 .5rem 1rem var(--shadow-black);
+//   }
+
+//   &--blue {
+//     background-color: var(--blue-primary);
+//     color: var(--white);
+//     &::after {
+//       background-color: var(--blue-primary);
+//     }
+//   }
+
+// }

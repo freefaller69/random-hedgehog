@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+
+@import '~@angular/material/theming';
+
+$custom-typography: mat-typography-config(
+  $font-family: 'Raleway, sans-serif'
+);
+
+@include mat-core($custom-typography);
+
+body {
+  // font-family: 'Open Sans', sans-serif;
+  // font-family: 'Lato', sans-serif;
+  // font-family: 'Source Sans Pro', sans-serif;
+  // font-family: 'Roboto', sans-serif;
+  font-family: 'Raleway', sans-serif;
+  letter-spacing: -0.4px;
+  line-height: 1.6;
+  box-sizing: border-box;
+}
+
+body, div, dl, dt, dd, ul, ol, li, pre, form, p, blockquote, th, td, a {
+	font-size: var(--base-font-size);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 200;
+  text-align: center;
+}
+
+h2 {
+  font-size: var(--h2-size);
+}
+
+h4 {
+  font-size: 2.5rem;
+}
+
+h5 {
+  font-size: 2rem;
+}
+
+p {
+  margin: 1.5rem 3rem;
+}
+
+.lead {
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+}
+
