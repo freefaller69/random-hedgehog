@@ -36,6 +36,7 @@ export class PostCreateComponent implements OnInit {
 
   onSavePost() {
     const post: Post = {
+      id: null,
       username: this.enteredUsername,
       createdAt: this.enteredDate,
       post: this.createPostForm.value.post
