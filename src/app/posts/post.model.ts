@@ -3,4 +3,8 @@ export interface Post {
   post: string;
   username: string;
   createdAt: number;
+  imagePath?: string;
+  comments?: string[];
+  creator?: string;
+  created?: number;
 }

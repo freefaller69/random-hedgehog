@@ -1,10 +1,11 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 import { Post } from './post.model';
-import { HttpClient } from '@angular/common/http';
 
 const BACKEND_URL = environment.apiUrl + '/posts/';
 
@@ -17,23 +18,25 @@ export class PostsService {
   private postsUpdated = new Subject<Post[]>();
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) { }
 
   getPosts() {
     // return [...this.posts];
     this.http.get<{ message: string, posts: any }>(BACKEND_URL)
-      .pipe(map((postData) => {
+      .pipe(
+        map(postData => {
         return postData.posts.map(post => {
           return {
             post: post.post,
             id: post._id,
-            createdAt: post.created_at
+            comments: post.comments,
+            created: post.created_at
           };
         });
       }))
       .subscribe((transformedPosts) => {
-        console.log(transformedPosts);
         this.posts = transformedPosts;
         this.postsUpdated.next([...this.posts]);
       });
@@ -44,23 +47,49 @@ export class PostsService {
   }
 
   addPost(post: Post) {
-    this.http.post<{ message: string }>(BACKEND_URL, post)
-      .subscribe((responseData) => {
-        console.log(responseData.message);
+    this.http.post<{ message: string, postId: string }>(BACKEND_URL, post)
+      .subscribe(responseData => {
+        const id = responseData.postId;
+        console.log('XXXX', responseData);
+        post.id = id;
         this.posts.push(post);
         this.postsUpdated.next([...this.posts]);
       })
   }
 
+  postComment(id: string, comment: string, index: number) {
+    const commentData = {
+      id: id,
+      // userId: userId,
+      comment: comment
+    };
+    this.http.post<{ message: string, comment: string }>(BACKEND_URL + 'comment', commentData)
+      .subscribe((responseData) => {
+        const comment = responseData.comment;
+        this.posts[index].comments.push(comment);
+        this.postsUpdated.next([...this.posts]);
+        this.router.navigate(['/']);
+      });
+  }
+
+  // postComment(id: string, comment: string, userId: string) {
+  //   const postData = {
+  //     id: id,
+  //     userId: userId,
+  //     comment: comment
+  //   };
+  //   this.http.post(BACKEND_URL + 'comment', postData)
+  //     .subscribe((responseData) => {
+  //       this.router.navigate(['/']);
+  //     });
+  // }
+
   deletePost(postId: string) {
-    console.log('post service reached');
     this.http.delete(BACKEND_URL + postId)
       .subscribe(() => {
-        console.log('enter subscribe');
         const updatedPosts = this.posts.filter(post => post.id !== postId);
         this.posts = updatedPosts;
         this.postsUpdated.next([...this.posts]);
-        console.log('exit subscribe');
       });
   }
 }
