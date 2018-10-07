@@ -8,7 +8,6 @@
     </div>
     <div class=" post post__content">  <!-- Post content section -->
       <span>
-        {{ post.id }} <br>  <!-- TODO: Remove id from content -->
         {{ post.post }}
         <mat-action-row>
           <button mat-button color="warn" (click)="onDelete(post.id)">Delete</button>
@@ -17,7 +16,6 @@
     </div>  <!-- Post content section -->
 
     <mat-expansion-panel>  <!-- Comment entry form -->
-      <!-- <button type="button" class="btn" (click)="draftComment(post.id)">Post Comment</button> -->
       <mat-expansion-panel-header>
         <h5>Post a Comment</h5>
       </mat-expansion-panel-header>
@@ -28,13 +26,6 @@
           <button mat-raised-button color="accent" type="button" class="btn" (click)="cancelSubmit()">Cancel</button>
         </form>
       </div>
-    </mat-expansion-panel>  <!-- Comment entry form -->
-
-    <!--  <mat-expansion-panel>   Comment entry form
-      <mat-expansion-panel-header>
-        Add a Comment
-      </mat-expansion-panel-header>
-      Expansion content
     </mat-expansion-panel>  <!-- Comment entry form -->
 
     <mat-expansion-panel>  <!-- Comments list    *ngIf="post.comments.length > 0" -->

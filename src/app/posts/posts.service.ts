@@ -52,7 +52,7 @@ export class PostsService {
         const id = responseData.postId;
         console.log('XXXX', responseData);
         post.id = id;
-        this.posts.push(post);
+        this.posts.unshift(post);
         this.postsUpdated.next([...this.posts]);
       })
   }
@@ -66,7 +66,11 @@ export class PostsService {
     this.http.post<{ message: string, comment: string }>(BACKEND_URL + 'comment', commentData)
       .subscribe((responseData) => {
         const comment = responseData.comment;
-        this.posts[index].comments.push(comment);
+        if (!this.posts[index].comments) {
+          this.posts[index].comments = [comment];
+        } else {
+          this.posts[index].comments.push(comment);
+        }
         this.postsUpdated.next([...this.posts]);
         this.router.navigate(['/']);
       });
