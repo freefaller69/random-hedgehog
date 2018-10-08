@@ -1,3 +1,11 @@
+.forms {
+
+  &__button-group {
+    display: flex;
+    justify-content: space-around;
+  }
+}
+
 .post-textarea {
   width: 100%;
   height: 8rem;

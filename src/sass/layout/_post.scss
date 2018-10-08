@@ -2,6 +2,10 @@
   min-width: 30ch;
   max-width: 60ch;
   margin-top: 1rem;
+  border: 1px solid var(--shadow-black);
+  border-radius: .5rem;
+  padding: 1rem;
+  background: var(--white);
 
   &__header {
     padding: 1rem 2rem;
@@ -11,5 +15,14 @@
 
   &__content {
     padding: 1.5rem 2.5rem;
+  }
+}
+
+.comments {
+  margin: 1rem;
+  background: aquamarine;
+
+  &__item {
+    padding: 0.5rem;
   }
 }
