@@ -1,12 +1,12 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 <mat-accordion multi="true" *ngIf="posts.length > 0 && !isLoading">
   <div class="post" *ngFor="let post of posts">
-    <div class=" post post__header">
+    <div class="post__header">
       <span>{{ post.username }}</span>
       <span>{{ post.created | date: 'MM/dd/yyyy' }}</span>
       <span>{{ post.created | date: 'h:mm aa' }}</span>
     </div>
-    <div class=" post post__content">  <!-- Post content section -->
+    <div class="post__content">  <!-- Post content section -->
       <span>
         {{ post.post }}
         <mat-action-row>
@@ -15,36 +15,25 @@
       </span>
     </div>  <!-- Post content section -->
 
-    <mat-expansion-panel>  <!-- Comment entry form -->
-      <mat-expansion-panel-header>
-        <h5>Post a Comment</h5>
-      </mat-expansion-panel-header>
-      <div *ngIf="post.id">
-        <form [formGroup]="createCommentForm">
-          <textarea matInput name="comment" formControlName="comment" placeholder="Share a comment"class="enter-comment"></textarea>
-          <button mat-raised-button color="primary" type="button" class="btn" (click)="postComment(post.id)">Submit</button>
-          <button mat-raised-button color="accent" type="button" class="btn" (click)="cancelSubmit()">Cancel</button>
-        </form>
-      </div>
-    </mat-expansion-panel>  <!-- Comment entry form -->
-
     <mat-expansion-panel>  <!-- Comments list    *ngIf="post.comments.length > 0" -->
         <mat-expansion-panel-header>
             Comments
           </mat-expansion-panel-header>
-      <ul class="comments" *ngFor="let comment of post.comments">
-        <li class="comment">
+          <div>
+            <form [formGroup]="createCommentForm">
+              <textarea matInput name="comment" formControlName="comment" placeholder="Share a comment"class="enter-comment"></textarea>
+              <div class="forms__button-group">
+                <button mat-raised-button color="primary" type="button" class="btn" (click)="postComment(post.id)">Submit</button>
+                <button mat-raised-button color="accent" type="button" class="btn" (click)="cancelSubmit()">Cancel</button>
+              </div>
+            </form>
+          </div>
+      <ul class="comments">
+        <li class="comments__item" *ngFor="let comment of post.comments">
           <strong></strong> - {{ comment.comment }}
         </li>
       </ul>
     </mat-expansion-panel>  <!-- Comments list -->
-
-    <!-- <mat-expansion-panel>  Comments list
-      <mat-expansion-panel-header class="panel">
-        Comments
-      </mat-expansion-panel-header>
-      List of comments here
-    </mat-expansion-panel>  Comments list -->
 
   </div>
 </mat-accordion>
