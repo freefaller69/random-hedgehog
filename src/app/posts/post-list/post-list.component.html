@@ -33,7 +33,9 @@
           <strong></strong> - {{ comment.comment }}
         </li>
       </ul>
-    </mat-expansion-panel>  <!-- Comments list -->
+    </mat-expansion-panel>  <!-- End Comments list -->
 
   </div>
 </mat-accordion>
+<mat-paginator [length]="totalPosts" [pageSize]="postsPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)" *ngIf="posts.length > 0 && !isLoading"></mat-paginator>
+<p class="info-text mat-body-1" *ngIf="posts.length <= 0 && !isLoading">No posts added yet</p>
