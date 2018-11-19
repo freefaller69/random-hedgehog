@@ -61,7 +61,6 @@ export class PostListComponent implements OnInit {
     this.postsService.postComment(id, comment, index);
     this.createCommentForm.reset();
     this.totalPosts = this.postsService.updatedPostCount();
-    console.log('new comment added', this.totalPosts);
     this.isLoading = false;
   }
 
@@ -78,8 +77,6 @@ export class PostListComponent implements OnInit {
   onDelete(postId: string) {
     // this.isLoading = true;
     this.postsService.deletePost(postId);
-    // this.totalPosts = this.postsService.updatedPostCount();
-    // console.log('newCount', this.totalPosts);
   }
 
   ngOnDestroy() {
