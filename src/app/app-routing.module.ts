@@ -1,10 +1,15 @@
-import { PostsComponent } from './posts/posts.component';
-import { PostListComponent } from './posts/post-list/post-list.component';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
+import { PostsComponent } from './posts/posts.component';
 
 const routes: Routes = [
-  { path: '', component: PostsComponent },
+  { path: '', component: LoginComponent, pathMatch: 'full' },
+  { path: 'login' , component: LoginComponent },
+  { path: 'signup' , component: SignupComponent },
+  { path: 'posts', component: PostsComponent },
   { path: '**', component: PostsComponent }
 ];
 

@@ -28,7 +28,7 @@ export class PostListComponent implements OnInit {
   ngOnInit() {
     this.isLoading = true;
     this.postsService.getPosts(this.postsPerPage, this.currentPage);
-    this.postsService.getPostUpdatedListener()
+    this.postsSub = this.postsService.getPostUpdatedListener()
       .subscribe((postData: { posts: Post[], postCount: number }) => {
         this.isLoading = false;
         this.totalPosts = postData.postCount;
