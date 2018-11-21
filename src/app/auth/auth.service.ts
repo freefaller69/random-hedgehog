@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import { AuthData } from './auth.model';
 import { EmailValidator } from '@angular/forms';
 import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 const BACKEND_URL = environment.apiUrl + '/user';
 
@@ -17,7 +18,8 @@ export class AuthService {
   private authStatusListener = new Subject<boolean>();
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) { }
 
   getToken() {
@@ -35,7 +37,7 @@ export class AuthService {
   createUser(user) {
     this.http.post(BACKEND_URL + '/signup', user)
       .subscribe(response => {
-        console.log(response);
+        this.router.navigate(['/']);
       }
     );
   }
@@ -52,6 +54,7 @@ export class AuthService {
         if (token) {
           this.isAuthenticated = true;
           this.authStatusListener.next(true);
+          this.router.navigate(['/posts']);
         }
       });
   }
@@ -60,5 +63,6 @@ export class AuthService {
     this.token = null;
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
+    this.router.navigate(['/']);
   }
 }

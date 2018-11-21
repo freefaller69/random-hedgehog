@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
+    this.isLoading = true;
     const user: AuthData = {
       email: this.loginForm.value.email,
       password: this.loginForm.value.password
