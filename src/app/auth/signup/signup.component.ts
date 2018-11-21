@@ -1,5 +1,8 @@
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AuthData } from './../auth.model';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { AuthService } from './../auth.service';
 
 @Component({
   selector: 'signup',
@@ -10,7 +13,9 @@ export class SignupComponent implements OnInit {
   isLoading = false;
   signupForm: FormGroup;
 
-  constructor() { }
+  constructor(
+    private authService: AuthService
+  ) { }
 
   ngOnInit() {
     this.initSignupForm();
@@ -41,7 +46,16 @@ export class SignupComponent implements OnInit {
   }
 
   onSignup() {
-    console.log(this.signupForm);
+    if (this.signupForm.invalid) {
+      return;
+    }
+    const user: AuthData = {
+      email: this.signupForm.value.email,
+      username: this.signupForm.value.username,
+      password: this.signupForm.value.password
+    }
+    this.authService.createUser(user);
+    this.signupForm.reset();
   }
 
 }

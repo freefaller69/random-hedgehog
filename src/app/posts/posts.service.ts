@@ -70,7 +70,6 @@ export class PostsService {
           posts: [...this.posts],
           postCount: this.totalPosts
         });
-        console.log('addPost', responseData);
       })
   }
 
@@ -92,7 +91,7 @@ export class PostsService {
           posts: [...this.posts],
           postCount: this.totalPosts
         });
-        this.router.navigate(['/']);
+        // this.router.navigate(['/']);
       });
   }
 
