@@ -2,9 +2,12 @@
   <div class="header header_logo">
     Mike's Place
   </div>
-  <div class="header header_menu">
-    <ul>
-      <li><a mat-button routerLink="/">Home</a></li>
+  <div class="header">
+    <ul class="menu">
+      <li *ngIf="userIsAuthenticated" class="menu menu_item"><a mat-button routerLink="/posts">Home</a></li>
+      <li *ngIf="!userIsAuthenticated" class="menu menu_item"><a mat-button routerLink="/login">Login</a></li>
+      <li *ngIf="!userIsAuthenticated" class="menu menu_item"><a mat-button routerLink="/signup">Signup</a></li>
+      <li *ngIf="userIsAuthenticated"><button mat-button (click)='onLogout()'>Logout</button></li>
     </ul>
   </div>
 </mat-toolbar>
