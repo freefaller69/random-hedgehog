@@ -2,14 +2,14 @@
 <mat-accordion multi="true" *ngIf="posts.length > 0 && !isLoading">
   <div class="post" *ngFor="let post of posts">
     <div class="post__header">
-      <span>{{ post.username }}</span>
-      <span>{{ post.created | date: 'MM/dd/yyyy' }}</span>
-      <span>{{ post.created | date: 'h:mm aa' }}</span>
+      <span>{{ post.creator }}</span>
+      <span>{{ post.created_at | date: 'MM/dd/yyyy' }}</span>
+      <span>{{ post.created_at | date: 'h:mm aa' }}</span>
     </div>
     <div class="post__content">  <!-- Post content section -->
       <span>
         {{ post.post }}
-        <mat-action-row *ngIf="userIsAuthenticated">
+        <mat-action-row *ngIf="userIsAuthenticated && userId === post.creatorId">
           <button mat-button color="warn" (click)="onDelete(post.id)">Delete</button>
         </mat-action-row>
       </span>
