@@ -10,10 +10,8 @@ import { PostsService } from './../posts.service';
   styleUrls: ['./post-create.component.scss']
 })
 export class PostCreateComponent implements OnInit {
-  enteredUsername = 'dudeman';
   enteredContent = '';
   createPostForm: FormGroup;
-  enteredDate = Date.now();
 
   constructor(
     public postsService: PostsService
@@ -37,12 +35,14 @@ export class PostCreateComponent implements OnInit {
   onSavePost() {
     const post: Post = {
       id: null,
-      username: this.enteredUsername,
-      createdAt: this.enteredDate,
+      username: null,
+      created_at: null,
       post: this.createPostForm.value.post
     }
     this.postsService.addPost(post);
+    console.log('BEFORE', this.createPostForm);
     this.createPostForm.reset();
+    console.log('AFTER', this.createPostForm);
   }
 
 }

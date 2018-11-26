@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
+import { AuthService } from './../auth/auth.service';
 import { Post } from './post.model';
 
 const BACKEND_URL = environment.apiUrl + '/posts';
@@ -20,7 +21,8 @@ export class PostsService {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   getPosts(postsPerPage: number, currentPage: number) {
@@ -34,14 +36,18 @@ export class PostsService {
             post: post.post,
             id: post._id,
             comments: post.comments,
-            created: post.created_at
+            creatorId: post.creator._id,
+            creator: post.creator.username,
+            created_at: post.created_at
           };
         }),
       maxPosts: postData.maxPosts
     };
       }))
       .subscribe((transformedPostData$) => {
+        console.log('TRANSFORMED', transformedPostData$);
         this.posts = transformedPostData$.posts;
+        console.log('THIS POSTS', this.posts);
         this.totalPosts = transformedPostData$.maxPosts;
         this.postsUpdated.next({
           posts: [...this.posts],
@@ -59,11 +65,15 @@ export class PostsService {
   }
 
   addPost(post: Post) {
-    this.http.post<{ message: string, postId: string }>(BACKEND_URL, post)
+    this.http.post<{ message: string, postId: string, username: string, created_at: Date }>(BACKEND_URL, post)
       .subscribe(responseData => {
-        const id = responseData.postId;
         const count = this.updatedPostCount();
-        post.id = id;
+
+        post.id = responseData.postId;
+        post.created_at = responseData.created_at;
+        post.creator = localStorage.getItem('userName');
+        post.creatorId = localStorage.getItem('userId');
+
         this.totalPosts += 1;
         this.posts.unshift(post);
         this.postsUpdated.next({
