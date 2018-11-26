@@ -9,7 +9,7 @@
     <div class="post__content">  <!-- Post content section -->
       <span>
         {{ post.post }}
-        <mat-action-row>
+        <mat-action-row *ngIf="userIsAuthenticated">
           <button mat-button color="warn" (click)="onDelete(post.id)">Delete</button>
         </mat-action-row>
       </span>
@@ -22,7 +22,7 @@
           <div>
             <form [formGroup]="createCommentForm">
               <textarea matInput name="comment" formControlName="comment" placeholder="Share a comment"class="enter-comment"></textarea>
-              <div class="forms__button-group">
+              <div class="forms__button-group" *ngIf="userIsAuthenticated">
                 <button mat-raised-button color="primary" type="button" class="btn" (click)="postComment(post.id)">Submit</button>
                 <button mat-raised-button color="accent" type="button" class="btn" (click)="cancelSubmit()">Cancel</button>
               </div>

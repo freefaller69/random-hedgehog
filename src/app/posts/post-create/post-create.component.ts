@@ -28,7 +28,7 @@ export class PostCreateComponent implements OnInit {
       'post': new FormControl(null, {
         validators: [
           Validators.required,
-          Validators.minLength(3)
+          Validators.minLength(1)
         ]
       })
     });

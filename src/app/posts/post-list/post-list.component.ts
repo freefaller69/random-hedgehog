@@ -1,10 +1,11 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { PageEvent } from '@angular/material';
 import { Subscription } from 'rxjs';
 
 import { Post } from '../post.model';
+import { AuthService } from './../../auth/auth.service';
 import { PostsService } from './../posts.service';
-import { PageEvent } from '@angular/material';
 
 @Component({
   selector: 'post-list',
@@ -18,21 +19,29 @@ export class PostListComponent implements OnInit {
   postsPerPage = 25;
   currentPage = 1;
   pageSizeOptions = [5, 10, 25, 50];
+  userIsAuthenticated = false;
   createCommentForm: FormGroup;
   private postsSub: Subscription;
+  private authStatusSubs: Subscription;
 
   constructor(
-    public postsService: PostsService
+    public postsService: PostsService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
     this.isLoading = true;
     this.postsService.getPosts(this.postsPerPage, this.currentPage);
-    this.postsService.getPostUpdatedListener()
+    this.postsSub = this.postsService.getPostUpdatedListener()
       .subscribe((postData: { posts: Post[], postCount: number }) => {
         this.isLoading = false;
         this.totalPosts = postData.postCount;
         this.posts = postData.posts;
+      });
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authStatusSubs = this.authService.getAuthStatusListener()
+      .subscribe(isAuthenticated => {
+        this.userIsAuthenticated = isAuthenticated;
       });
     this.initCommentForm();
   }
@@ -81,6 +90,7 @@ export class PostListComponent implements OnInit {
 
   ngOnDestroy() {
     this.postsSub.unsubscribe();
+    this.authStatusSubs.unsubscribe();
   }
 
 }
