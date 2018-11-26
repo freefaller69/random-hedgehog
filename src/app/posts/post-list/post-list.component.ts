@@ -20,6 +20,8 @@ export class PostListComponent implements OnInit {
   currentPage = 1;
   pageSizeOptions = [5, 10, 25, 50];
   userIsAuthenticated = false;
+  userId: string;
+  userName: string;
   createCommentForm: FormGroup;
   private postsSub: Subscription;
   private authStatusSubs: Subscription;
@@ -32,6 +34,7 @@ export class PostListComponent implements OnInit {
   ngOnInit() {
     this.isLoading = true;
     this.postsService.getPosts(this.postsPerPage, this.currentPage);
+    this.userId = this.authService.getUserId();
     this.postsSub = this.postsService.getPostUpdatedListener()
       .subscribe((postData: { posts: Post[], postCount: number }) => {
         this.isLoading = false;
@@ -42,6 +45,7 @@ export class PostListComponent implements OnInit {
     this.authStatusSubs = this.authService.getAuthStatusListener()
       .subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
+        this.userId = this.authService.getUserId();
       });
     this.initCommentForm();
   }
@@ -65,7 +69,6 @@ export class PostListComponent implements OnInit {
   postComment(id: string) {
     this.isLoading = true;
     const index = this.posts.findIndex(x => x.id === id);
-    // const userId = localStorage.getItem('userId');
     const comment = this.createCommentForm.get('comment').value;
     this.postsService.postComment(id, comment, index);
     this.createCommentForm.reset();
@@ -84,7 +87,6 @@ export class PostListComponent implements OnInit {
   }
 
   onDelete(postId: string) {
-    // this.isLoading = true;
     this.postsService.deletePost(postId);
   }
 

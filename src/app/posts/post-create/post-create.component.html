@@ -7,7 +7,7 @@
         placeholder="Post your thoughts here..."
         formControlName="post"
         ></textarea>
-        <mat-error *ngIf="createPostForm.get('post').invalid">Posts field cannot be empty.</mat-error>
+        <mat-error *ngIf="createPostForm.get('post').invalid && (createPostForm.get('post').dirty || createPostForm.get('post').touched)">Posts field cannot be empty.</mat-error>
     </mat-form-field>
     <button
       [disabled]="!this.createPostForm.valid"
