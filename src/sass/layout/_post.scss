@@ -20,9 +20,9 @@
 
 .comments {
   margin: 1rem;
-  background: aquamarine;
 
   &__item {
     padding: 0.5rem;
+    border-top: 1px solid var(--gray-medium);
   }
 }

@@ -1,6 +1,6 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 <mat-accordion multi="true" *ngIf="posts.length > 0 && !isLoading">
-  <div class="post" *ngFor="let post of posts">
+  <div class="post" *ngFor="let post of posts; let i = index">
     <div class="post__header">
       <span>{{ post.creator }}</span>
       <span>{{ post.created_at | date: 'MM/dd/yyyy' }}</span>
@@ -24,13 +24,14 @@
               <textarea matInput name="comment" formControlName="comment" placeholder="Share a comment"class="enter-comment"></textarea>
               <div class="forms__button-group" *ngIf="userIsAuthenticated">
                 <button mat-raised-button color="primary" type="button" class="btn" (click)="postComment(post.id)">Submit</button>
-                <button mat-raised-button color="accent" type="button" class="btn" (click)="cancelSubmit()">Cancel</button>
+                <button mat-raised-button color="accent" type="button" class="btn" (click)="cancelSubmit()" [disabled]="!this.createCommentForm.valid">Clear</button>
               </div>
             </form>
           </div>
       <ul class="comments">
-        <li class="comments__item" *ngFor="let comment of post.comments">
-          <strong></strong> - {{ comment.comment }}
+        <li class="comments__item" *ngFor="let comment of post.comments; let i = index">
+          <div><strong class="person">{{ comment.commentator }}</strong> {{ comment.createdAt | date: 'h:mm aa' }}</div>
+          <div>{{ comment.comment }}</div>
         </li>
       </ul>
     </mat-expansion-panel>  <!-- End Comments list -->
