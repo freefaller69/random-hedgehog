@@ -1,5 +1,5 @@
 <mat-card>
-  <form [formGroup]="createPostForm" (submit)="onSavePost()">
+  <form [formGroup]="createPostForm" (submit)="onSavePost()" class="forms__post">
     <mat-form-field>
       <textarea
         matInput
@@ -13,6 +13,7 @@
       [disabled]="!this.createPostForm.valid"
       mat-raised-button
       color="accent"
+      class="forms__post-btn"
       type="submit">Save Post</button>
   </form>
 </mat-card>

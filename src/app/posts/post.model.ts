@@ -4,8 +4,15 @@ export interface Post {
   username: string;
   created_at: Date;
   imagePath?: string;
-  comments?: string[];
+  comments?: Comment[];
   creatorId?: string;
   creator?: string;
   created?: number;
+}
+
+export interface Comment {
+  id: string;
+  comment: string;
+  commentatorId: string;
+  commentator: string;
 }

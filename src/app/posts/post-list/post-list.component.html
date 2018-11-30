@@ -1,10 +1,12 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 <mat-accordion multi="true" *ngIf="posts.length > 0 && !isLoading">
-  <div class="post" *ngFor="let post of posts">
+  <div class="post" *ngFor="let post of posts; let i = index">
     <div class="post__header">
-      <span>{{ post.creator }}</span>
-      <span>{{ post.created_at | date: 'MM/dd/yyyy' }}</span>
-      <span>{{ post.created_at | date: 'h:mm aa' }}</span>
+      <strong class="post__header-user">{{ post.creator }}</strong>
+      <div class="post__header-meta">
+          <div>{{ post.created_at | date: 'MM/dd/yyyy' }}</div>
+          <div>{{ post.created_at | date: 'h:mm aa' }}</div>
+      </div>
     </div>
     <div class="post__content">  <!-- Post content section -->
       <span>
@@ -20,17 +22,43 @@
             Comments
           </mat-expansion-panel-header>
           <div>
-            <form [formGroup]="createCommentForm">
-              <textarea matInput name="comment" formControlName="comment" placeholder="Share a comment"class="enter-comment"></textarea>
-              <div class="forms__button-group" *ngIf="userIsAuthenticated">
-                <button mat-raised-button color="primary" type="button" class="btn" (click)="postComment(post.id)">Submit</button>
-                <button mat-raised-button color="accent" type="button" class="btn" (click)="cancelSubmit()">Cancel</button>
+            <form [formGroup]="createCommentForm" role="comment form">
+              <textarea
+                matInput
+                name="comment"
+                aria-label="comment input"
+                formControlName="comment"
+                placeholder="Share a comment"
+                class="enter-comment"></textarea>
+              <mat-error *ngIf="createCommentForm.get('comment').invalid && (createCommentForm.get('comment').dirty || createCommentForm.get('comment').touched)">Comments field cannot be empty.</mat-error>
+
+              <div class="forms__button-group" *ngIf="userIsAuthenticated && createCommentForm.get('comment').dirty">
+                <button
+                  [disabled]="!this.createCommentForm.valid"
+                  mat-raised-button color="primary"
+                  class="btn"
+                  (click)="postComment(post.id)"
+                  type="submit">Submit</button>
+                <button
+                [disabled]="!this.createCommentForm.valid"
+                mat-raised-button
+                color="accent"
+                class="btn"
+                (click)="cancelSubmit()"
+                type="submit">Clear</button>
               </div>
             </form>
           </div>
       <ul class="comments">
-        <li class="comments__item" *ngFor="let comment of post.comments">
-          <strong></strong> - {{ comment.comment }}
+        <li class="comments__item" *ngFor="let comment of post.comments; let i = index">
+          <div class="comments__item-header">
+            <strong class="comments__item-user">{{ comment.commentator }}</strong>
+            <div class="comments__item-meta">
+              <div>{{ comment.createdAt | date: 'MM/dd/yyyy' }}</div>
+              <div>{{ comment.createdAt | date: 'h:mm aa' }}</div>
+            </div>
+          </div>
+          <div class="comments__item-text">{{ comment.comment }}</div>
         </li>
       </ul>
     </mat-expansion-panel>  <!-- End Comments list -->

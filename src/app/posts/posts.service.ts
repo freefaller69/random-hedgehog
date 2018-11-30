@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 import { AuthService } from './../auth/auth.service';
-import { Post } from './post.model';
+import { Post, Comment } from './post.model';
 
 const BACKEND_URL = environment.apiUrl + '/posts';
 
@@ -45,9 +45,7 @@ export class PostsService {
     };
       }))
       .subscribe((transformedPostData$) => {
-        console.log('TRANSFORMED', transformedPostData$);
         this.posts = transformedPostData$.posts;
-        console.log('THIS POSTS', this.posts);
         this.totalPosts = transformedPostData$.maxPosts;
         this.postsUpdated.next({
           posts: [...this.posts],
@@ -89,7 +87,7 @@ export class PostsService {
       // userId: userId,
       comment: comment
     };
-    this.http.post<{ message: string, comment: string }>(BACKEND_URL + '/comment', commentData)
+    this.http.post<{ message: string, comment: Comment }>(BACKEND_URL + '/comment', commentData)
       .subscribe((responseData) => {
         const comment = responseData.comment;
         if (!this.posts[index].comments) {
