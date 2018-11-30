@@ -1,5 +1,5 @@
 .post {
-  min-width: 30ch;
+  min-width: 32.5rem;
   max-width: 60ch;
   margin-top: 1rem;
   border: 1px solid var(--shadow-black);
@@ -11,6 +11,22 @@
     padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+
+    &-user {
+      color: var(--blue-dark);
+      min-width: min-content;
+      margin-right: 2rem;
+      flex: 3;
+    }
+
+    &-meta {
+      min-width: 15rem;
+
+      display: flex;
+      justify-content: space-between;
+      flex: 1;
+    }
   }
 
   &__content {
@@ -24,5 +40,31 @@
   &__item {
     padding: 0.5rem;
     border-top: 1px solid var(--gray-medium);
+
+    display: flex;
+    flex-direction: column;
+
+    &-header {
+      padding: 0.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    &-user {
+      color: var(--blue-dark);
+    }
+
+    &-meta {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &-text {
+      background-color: var(--blue-light);
+      border-radius: 1rem;
+      padding: 0.5rem 1.5rem;
+      flex: 100;
+      min-width: 15rem;
+    }
   }
 }

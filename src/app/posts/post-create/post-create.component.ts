@@ -10,7 +10,6 @@ import { PostsService } from './../posts.service';
   styleUrls: ['./post-create.component.scss']
 })
 export class PostCreateComponent implements OnInit {
-  enteredContent = '';
   createPostForm: FormGroup;
 
   constructor(
@@ -40,9 +39,7 @@ export class PostCreateComponent implements OnInit {
       post: this.createPostForm.value.post
     }
     this.postsService.addPost(post);
-    console.log('BEFORE', this.createPostForm);
     this.createPostForm.reset();
-    console.log('AFTER', this.createPostForm);
   }
 
 }
