@@ -47,47 +47,12 @@ export class PostsComponent implements OnInit {
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.authService.getUserId();
       });
-    this.initCommentForm();
-  }
-
-  initCommentForm() {
-    this.createCommentForm = new FormGroup({
-      'comment': new FormControl(null, {
-        validators: [
-          Validators.required,
-          Validators.minLength(1)
-        ]
-      }),
-      // 'commentator': new FormControl(null, {
-      //   validators: [
-      //     Validators.required,
-      //   ]
-      // })
-    });
-  }
-
-  postComment(id: string) {
-    this.isLoading = true;
-    const index = this.posts.findIndex(x => x.id === id);
-    const comment = this.createCommentForm.get('comment').value;
-    this.postsService.postComment(id, comment, index);
-    this.createCommentForm.reset();
-    this.totalPosts = this.postsService.updatedPostCount();
-    this.isLoading = false;
-  }
-
-  cancelSubmit(id: string) {
-    this.createCommentForm.reset();
   }
 
   onChangedPage(pageData: PageEvent) {
     this.currentPage = pageData.pageIndex + 1;
     this.postsPerPage = pageData.pageSize;
     this.postsService.getPosts(this.postsPerPage, this.currentPage);
-  }
-
-  onDelete(postId: string) {
-    this.postsService.deletePost(postId);
   }
 
   ngOnDestroy() {

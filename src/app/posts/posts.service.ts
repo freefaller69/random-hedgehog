@@ -1,13 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
-import { AuthService } from './../auth/auth.service';
-import { Post, Comment } from './post.model';
-import { stringify } from '@angular/compiler/src/util';
+import { Comment, Post } from './post.model';
 
 const BACKEND_URL = environment.apiUrl + '/posts';
 
@@ -22,8 +19,6 @@ export class PostsService {
 
   constructor(
     private http: HttpClient,
-    private router: Router,
-    private authService: AuthService
   ) { }
 
   getPosts(postsPerPage: number, currentPage: number) {
@@ -81,28 +76,6 @@ export class PostsService {
           postCount: this.totalPosts
         });
       })
-  }
-
-  postComment(id: string, comment: string, index: number) {
-    const commentData = {
-      id: id,
-      // userId: userId,
-      comment: comment
-    };
-    // this.http.post<{ message: string, comment: Comment }>(BACKEND_URL + '/comment', commentData)
-    //   .subscribe((responseData) => {
-    //     const comment = responseData.comment;
-    //     if (!this.posts[index].comments) {
-    //       this.posts[index].comments = [comment];
-    //     } else {
-    //       this.posts[index].comments.push(comment);
-    //     }
-    //     this.postsUpdated.next({
-    //       posts: [...this.posts],
-    //       postCount: this.totalPosts
-    //     });
-    //     // this.router.navigate(['/']);
-    //   });
   }
 
   addComment(id: string, comment: string, postIndex: number) {
