@@ -8,24 +8,18 @@
   background: var(--white);
 
   &__header {
-    padding: 1rem 2rem;
+    padding: 0 2rem;
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    flex-direction: column;
 
     &-user {
       color: var(--blue-dark);
-      min-width: min-content;
-      margin-right: 2rem;
-      flex: 3;
     }
 
     &-meta {
-      min-width: 15rem;
-
       display: flex;
       justify-content: space-between;
-      flex: 1;
+      font-size: 1.2rem;
     }
   }
 
@@ -39,6 +33,7 @@
 
   &__item {
     padding: 0.5rem;
+    margin-left: 2rem;
     border-top: 1px solid var(--gray-medium);
 
     display: flex;

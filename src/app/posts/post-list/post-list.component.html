@@ -25,6 +25,9 @@
             <form [formGroup]="createCommentForm" role="comment form">
               <textarea
                 matInput
+                matTextareaAutosize
+                matAutosizeMinRows=1
+                matAutosizeMaxRows=5
                 name="comment"
                 aria-label="comment input"
                 formControlName="comment"
