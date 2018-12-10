@@ -1,0 +1,51 @@
+<div class="post">
+  <div class="post__header">
+    <strong class="post__header-user">{{ post.creator }}</strong>
+    <div class="post__header-meta">
+      <div>{{ post.created_at | date: 'h:mm aa' }}</div>
+      <div>{{ post.created_at | date: 'MM/dd/yyyy' }}</div>
+    </div>
+  </div>
+  <div class="post__content">  <!-- Post content section -->
+    <span>
+      {{ post.post }}
+      <mat-action-row *ngIf="userIsAuthenticated && userId === post.creatorId">
+        <button mat-button color="warn" (click)="onDelete(post.id)">Delete</button>
+      </mat-action-row>
+    </span>
+  </div>  <!-- Post content section -->
+  <div class="comments">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+      {{post.comments.length}} Comments
+    </mat-expansion-panel-header>
+    <div>
+      <form [formGroup]="createCommentForm" role="comment form">
+        <textarea
+          matInput
+          matTextareaAutosize
+          matAutosizeMinRows=1
+          matAutosizeMaxRows=5
+          name="comment"
+          aria-label="comment input"
+          formControlName="comment"
+          placeholder="Share a comment"
+          class="enter-comment"></textarea>
+        <mat-error *ngIf="createCommentForm.get('comment').invalid && (createCommentForm.get('comment').dirty || createCommentForm.get('comment').touched)">Comments field cannot be empty.</mat-error>
+
+        <div class="forms__button-group" *ngIf="userIsAuthenticated && createCommentForm.get('comment').dirty">
+          <button
+            [disabled]="!this.createCommentForm.valid"
+            mat-raised-button color="primary"
+            class="btn"
+            (click)="postComment(post.id)"
+            type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+      <div *ngIf="post.comments.length > 0 && !isLoading">
+        <comment *ngFor="let comment of post.comments; let i = index" [comment]='comment' class="comments"></comment>
+      </div>
+    </mat-expansion-panel>  <!-- End Comments list -->
+  </div>
+</div>

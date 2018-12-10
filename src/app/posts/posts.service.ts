@@ -1,12 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
-import { AuthService } from './../auth/auth.service';
-import { Post, Comment } from './post.model';
+import { Comment, Post } from './post.model';
 
 const BACKEND_URL = environment.apiUrl + '/posts';
 
@@ -21,8 +19,6 @@ export class PostsService {
 
   constructor(
     private http: HttpClient,
-    private router: Router,
-    private authService: AuthService
   ) { }
 
   getPosts(postsPerPage: number, currentPage: number) {
@@ -63,7 +59,7 @@ export class PostsService {
   }
 
   addPost(post: Post) {
-    this.http.post<{ message: string, postId: string, username: string, created_at: Date }>(BACKEND_URL, post)
+    this.http.post<{ message: string, postId: string, username: string, created_at: Date, comments: Comment[] }>(BACKEND_URL, post)
       .subscribe(responseData => {
         const count = this.updatedPostCount();
 
@@ -71,6 +67,7 @@ export class PostsService {
         post.created_at = responseData.created_at;
         post.creator = localStorage.getItem('userName');
         post.creatorId = localStorage.getItem('userId');
+        post.comments = responseData.comments;
 
         this.totalPosts += 1;
         this.posts.unshift(post);
@@ -81,39 +78,21 @@ export class PostsService {
       })
   }
 
-  postComment(id: string, comment: string, index: number) {
+  addComment(id: string, comment: string, postIndex: number) {
     const commentData = {
       id: id,
-      // userId: userId,
       comment: comment
     };
     this.http.post<{ message: string, comment: Comment }>(BACKEND_URL + '/comment', commentData)
       .subscribe((responseData) => {
         const comment = responseData.comment;
-        if (!this.posts[index].comments) {
-          this.posts[index].comments = [comment];
-        } else {
-          this.posts[index].comments.push(comment);
-        }
+        this.posts[postIndex].comments.push(comment);
         this.postsUpdated.next({
           posts: [...this.posts],
           postCount: this.totalPosts
         });
-        // this.router.navigate(['/']);
-      });
+      })
   }
-
-  // postComment(id: string, comment: string, userId: string) {
-  //   const postData = {
-  //     id: id,
-  //     userId: userId,
-  //     comment: comment
-  //   };
-  //   this.http.post(BACKEND_URL + 'comment', postData)
-  //     .subscribe((responseData) => {
-  //       this.router.navigate(['/']);
-  //     });
-  // }
 
   deletePost(postId: string) {
     this.http.delete(BACKEND_URL + '/' + postId)

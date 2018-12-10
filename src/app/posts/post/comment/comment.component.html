@@ -1,0 +1,10 @@
+<div class="comments__item">
+  <div class="comments__item-header">
+    <strong class="comments__item-user">{{ comment.commentator }}</strong>
+    <div class="comments__item-meta">
+      <div>{{ comment.createdAt | date: 'h:mm aa' }}</div>
+      <div>{{ comment.createdAt | date: 'MM/dd/yyyy' }}</div>
+    </div>
+  </div>
+  <div class="comments__item-text">{{ comment.comment }}</div>
+</div>
