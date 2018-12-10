@@ -66,16 +66,6 @@ export class PostListComponent implements OnInit {
     });
   }
 
-  postComment(id: string) {
-    this.isLoading = true;
-    const index = this.posts.findIndex(x => x.id === id);
-    const comment = this.createCommentForm.get('comment').value;
-    this.postsService.postComment(id, comment, index);
-    this.createCommentForm.reset();
-    this.totalPosts = this.postsService.updatedPostCount();
-    this.isLoading = false;
-  }
-
   cancelSubmit(id: string) {
     this.createCommentForm.reset();
   }

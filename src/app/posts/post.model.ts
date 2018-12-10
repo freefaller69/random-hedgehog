@@ -15,4 +15,5 @@ export interface Comment {
   comment: string;
   commentatorId: string;
   commentator: string;
+  createdAt: Date;
 }
