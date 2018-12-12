@@ -22,3 +22,73 @@
   width: 100%;
   font-family: inherit;
 }
+
+.post {
+
+  &__form {
+    width: 100%;
+    height: 15rem;
+
+    background-color: var(--white);
+    border: 1px solid var(--gray-medium);
+    border-radius: 3px;
+    box-shadow: .2rem .2rem .2rem var(--shadow-black);
+    margin-bottom: 2rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+.form {
+
+  &__group {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__textarea {
+    width: 100%;
+    display: block;
+    font-size: 1.5rem;
+    font-family: inherit;
+    color: inherit;
+    padding: 1.5rem 2rem;
+    border-radius: 2px;
+    border: none;
+    border-bottom: 3px solid transparent;
+    box-shadow: 1px 1px 1px var(--shadow-black);
+    resize: none;
+    transition: all .3s;
+
+      &:focus {
+        outline: none;
+        border-bottom: 3px solid var(--blue-primary);
+
+        &:invalid {
+          border-bottom: 3px solid var(--invalid-primary);
+        }
+      }
+
+      &::-webkit-input-placeholder {
+        color: var(--gray-dark);
+      }
+  }
+
+  &__label {
+    font-size: 1.2rem;
+    margin-left: 2rem;
+    margin-top: .7rem;
+    display: block;
+    transition: all .3s;
+  }
+
+  &__textarea:placeholder-shown + &__label {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6rem);
+  }
+}
