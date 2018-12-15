@@ -1,11 +1,13 @@
-<section class="post__form">
-  <form [formGroup]="createPostForm" (submit)="onSavePost()">
+<div class="post__form">
+  <form [formGroup]="createPostForm" (submit)="onSavePost()"  role="post form">
     <div class="form__group">
       <textarea
         name="post"
-        id=""
-        cols="30"
-        rows="2"
+        aria-label="post input"
+        cdkTextareaAutosize
+        #autosize="cdkTextareaAutosize"
+        cdkAutosizeMinRows="2"
+        cdkAutosizeMaxRows="5"
         class="form__textarea"
         placeholder="Post your thoughts here..."
         formControlName="post"
@@ -15,8 +17,8 @@
       <button
         [disabled]="!this.createPostForm.valid"
         [ngClass]="{ 'btn--green': this.createPostForm.valid, 'btn--disabled': !this.createPostForm.valid }"
-        class="btn btn--green"
+        class="btn"
         type="submit">Save Post</button>
     </div>
   </form>
-</section>
+</div>
