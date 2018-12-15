@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { take } from 'rxjs/operators';
 
 import { Post } from '../post.model';
 import { PostsService } from './../posts.service';
@@ -11,10 +13,18 @@ import { PostsService } from './../posts.service';
 })
 export class PostCreateComponent implements OnInit {
   createPostForm: FormGroup;
+  @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
   constructor(
-    public postsService: PostsService
+    public postsService: PostsService,
+    private ngZone: NgZone
   ) { }
+
+  triggerResize() {
+    // Wait for changes to be applied, then trigger textarea resize.
+    this.ngZone.onStable.pipe(take(1))
+        .subscribe(() => this.autosize.resizeToFitContent(true));
+  }
 
   ngOnInit() {
     this.initPostForm();
@@ -25,7 +35,7 @@ export class PostCreateComponent implements OnInit {
       'post': new FormControl(null, {
         validators: [
           Validators.required,
-          Validators.minLength(1)
+          Validators.minLength(2)
         ]
       })
     });
