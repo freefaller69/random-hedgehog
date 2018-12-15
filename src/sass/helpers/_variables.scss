@@ -6,7 +6,7 @@
 
   // COLORS
   --white: hsla(0, 0%, 100%, 1);        // #ffffff
-  --white-2: hsla(0, 0%, 96%, 1);      // #f4f4f4
+  --white-2: hsla(0, 0%, 98%, 1);      // #f4f4f4
   --white-3: hsla(0, 0%, 90%, 1);
 
   --black: hsla(0, 0%, 0%, 1);              // #000000
@@ -21,6 +21,10 @@
   --gray-light: hsla(222, 0%, 87%, 1);
   --gray-medium: hsla(222, 0%, 61%, 1);
   --gray-dark: hsla(222, 0%, 35%, 1);
+
+  --green-light: hsla(128, 50%, 60%, 1);
+
+  --invalid-primary: hsla(0, 100%, 50%, 1);
 
   --primary-light: hsla(227, 67%, 76%, 1);
   --primary-medium: hsla(223, 22%, 43%, 1);

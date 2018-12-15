@@ -1,7 +1,27 @@
 .btn {
-  max-width: 10rem;
+  align-self: flex-end;
+  text-decoration: none;
+  padding: 1rem 2rem;
+  display: inline-block;
+  border-radius: 1rem;
+  position: relative;
+
+  border: none;
+  cursor: pointer;
+
+  &--green {
+    background-color: var(--green-light);
+    color: var(--white);
+
+  &--disabled {
+      background-color: var(--gray-light);
+      color: var(--gray-medium);
+    }
+  }
 }
 
+
+// TODO - Use or remove the code below
 // .btn {
 //   &,
 //   &:link,

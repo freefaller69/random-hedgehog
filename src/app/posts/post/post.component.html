@@ -19,27 +19,29 @@
         <mat-expansion-panel-header>
       {{post.comments.length}} Comments
     </mat-expansion-panel-header>
-    <div>
+    <div class="comment__form">
       <form [formGroup]="createCommentForm" role="comment form">
-        <textarea
-          matInput
-          matTextareaAutosize
-          matAutosizeMinRows=1
-          matAutosizeMaxRows=5
-          name="comment"
-          aria-label="comment input"
-          formControlName="comment"
-          placeholder="Share a comment"
-          class="enter-comment"></textarea>
-        <mat-error *ngIf="createCommentForm.get('comment').invalid && (createCommentForm.get('comment').dirty || createCommentForm.get('comment').touched)">Comments field cannot be empty.</mat-error>
-
-        <div class="forms__button-group" *ngIf="userIsAuthenticated && createCommentForm.get('comment').dirty">
-          <button
-            [disabled]="!this.createCommentForm.valid"
-            mat-raised-button color="primary"
-            class="btn"
-            (click)="postComment(post.id)"
-            type="submit">Submit</button>
+        <div class="form__group">
+            <textarea
+            name="comment"
+            aria-label="comment input"
+            cdkTextareaAutosize
+            #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="5"
+            class="form__textarea"
+            placeholder="Share a comment with {{ post.creator }}"
+            formControlName="comment"
+            required
+            ></textarea>
+            <label for="comment" class="form__label">Share a comment</label>
+          <div class="forms__button-group" *ngIf="userIsAuthenticated && createCommentForm.get('comment').dirty">
+            <button
+              [disabled]="!this.createCommentForm.valid"
+              class="btn btn--green"
+              (click)="postComment(post.id)"
+              type="submit">Submit</button>
+          </div>
         </div>
       </form>
     </div>

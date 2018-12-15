@@ -1,22 +1,24 @@
-<mat-card>
-  <form [formGroup]="createPostForm" (submit)="onSavePost()" class="forms__post">
-    <mat-form-field>
+<div class="post__form">
+  <form [formGroup]="createPostForm" (submit)="onSavePost()"  role="post form">
+    <div class="form__group">
       <textarea
-        matInput
-        matTextareaAutosize
-        matAutosizeMinRows=2
-        matAutosizeMaxRows=5
-        class="post-textarea"
+        name="post"
+        aria-label="post input"
+        cdkTextareaAutosize
+        #autosize="cdkTextareaAutosize"
+        cdkAutosizeMinRows="2"
+        cdkAutosizeMaxRows="5"
+        class="form__textarea"
         placeholder="Post your thoughts here..."
         formControlName="post"
-        ></textarea>
-        <mat-error *ngIf="createPostForm.get('post').invalid && (createPostForm.get('post').dirty || createPostForm.get('post').touched)">Posts field cannot be empty.</mat-error>
-    </mat-form-field>
-    <button
-      [disabled]="!this.createPostForm.valid"
-      mat-raised-button
-      color="accent"
-      class="forms__post-btn"
-      type="submit">Save Post</button>
+        required
+      ></textarea>
+      <label for="post" class="form__label">Post your thoughts here...</label>
+      <button
+        [disabled]="!this.createPostForm.valid"
+        [ngClass]="{ 'btn--green': this.createPostForm.valid, 'btn--disabled': !this.createPostForm.valid }"
+        class="btn"
+        type="submit">Save Post</button>
+    </div>
   </form>
-</mat-card>
+</div>
