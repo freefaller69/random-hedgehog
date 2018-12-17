@@ -9,45 +9,54 @@
   <div class="post__content">  <!-- Post content section -->
     <span>
       {{ post.post }}
-      <mat-action-row *ngIf="userIsAuthenticated && userId === post.creatorId">
+      <div class="action" *ngIf="userIsAuthenticated && userId === post.creatorId">
+        <!-- TODO - Replace mat-buttons -->
         <button mat-button color="warn" (click)="onDelete(post.id)">Delete</button>
-      </mat-action-row>
+      </div>
     </span>
   </div>  <!-- Post content section -->
   <div class="comments">
       <mat-expansion-panel>
         <mat-expansion-panel-header>
-      {{post.comments.length}} Comments
-    </mat-expansion-panel-header>
-    <div class="comment__form">
-      <form [formGroup]="createCommentForm" role="comment form">
-        <div class="form__group">
-            <textarea
-            name="comment"
-            aria-label="comment input"
-            cdkTextareaAutosize
-            #autosize="cdkTextareaAutosize"
-            cdkAutosizeMinRows="1"
-            cdkAutosizeMaxRows="5"
-            class="form__textarea"
-            placeholder="Share a comment with {{ post.creator }}"
-            formControlName="comment"
-            required
-            ></textarea>
-            <label for="comment" class="form__label">Share a comment</label>
-          <div class="forms__button-group" *ngIf="userIsAuthenticated && createCommentForm.get('comment').dirty">
-            <button
-              [disabled]="!this.createCommentForm.valid"
-              class="btn btn--green"
-              (click)="postComment(post.id)"
-              type="submit">Submit</button>
-          </div>
+          {{post.comments.length}} Comments
+        </mat-expansion-panel-header>
+        <div *ngIf="post.comments.length > 0 && !isLoading">
+          <comment
+            *ngFor="let comment of post.comments; let i = index"
+            [comment]="comment"
+            [userIsAuthenticated]="userIsAuthenticated"
+            [userId]="userId"
+            [cIdx]="i"
+            (deleteEvent)="onDeleteComment($event)"
+            class="comments">
+          </comment>
         </div>
-      </form>
-    </div>
-      <div *ngIf="post.comments.length > 0 && !isLoading">
-        <comment *ngFor="let comment of post.comments; let i = index" [comment]='comment' class="comments"></comment>
-      </div>
+        <div class="comment__form">
+          <form [formGroup]="createCommentForm" role="comment form">
+            <div class="form__group">
+                <textarea
+                name="comment"
+                aria-label="comment input"
+                cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5"
+                class="form__textarea"
+                placeholder="Share a comment with {{ post.creator }}"
+                formControlName="comment"
+                required
+                ></textarea>
+                <label for="comment" class="form__label">Share a comment</label>
+              <div class="forms__button-group" *ngIf="userIsAuthenticated && createCommentForm.get('comment').dirty">
+                <button
+                  [disabled]="!this.createCommentForm.valid"
+                  class="btn btn--green"
+                  (click)="postComment(post.id)"
+                  type="submit">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
     </mat-expansion-panel>  <!-- End Comments list -->
   </div>
 </div>
