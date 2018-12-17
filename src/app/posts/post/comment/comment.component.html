@@ -8,3 +8,6 @@
   </div>
   <div class="comments__item-text">{{ comment.comment }}</div>
 </div>
+<div class="action" *ngIf="userIsAuthenticated && userId === comment.commentatorId">
+  <button mat-button color="warn" (click)="onDeleteComment($event)">Delete</button>
+</div>

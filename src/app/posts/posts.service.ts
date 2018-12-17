@@ -83,7 +83,7 @@ export class PostsService {
       id: id,
       comment: comment
     };
-    this.http.post<{ message: string, comment: Comment }>(BACKEND_URL + '/comment', commentData)
+    this.http.put<{ message: string, comment: Comment }>(BACKEND_URL + '/comment', commentData)
       .subscribe((responseData) => {
         const comment = responseData.comment;
         this.posts[postIndex].comments.push(comment);
@@ -105,5 +105,16 @@ export class PostsService {
           postCount: this.totalPosts
         });
       });
+  }
+
+  deleteComment(postId: string, commentId: string) {
+    const requestUrl = `${BACKEND_URL}/${postId}/comment/${commentId}`;
+    this.http.delete(requestUrl)
+      .subscribe(() => {
+        this.postsUpdated.next({
+          posts: [...this.posts],
+          postCount: this.totalPosts
+        });
+      })
   }
 }
