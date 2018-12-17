@@ -63,6 +63,11 @@ export class PostComponent implements OnInit {
     this.postsService.deletePost(postId);
   }
 
+  onDeleteComment(e) {
+    this.post.comments.splice(e.index, 1);
+    this.postsService.deleteComment(this.post.id, e.id);
+  }
+
   ngOnDestroy(): void {
     this.authStatusSubs.unsubscribe();
   }

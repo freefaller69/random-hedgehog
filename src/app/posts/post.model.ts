@@ -11,7 +11,7 @@ export interface Post {
 }
 
 export interface Comment {
-  id: string;
+  _id: string;
   comment: string;
   commentatorId: string;
   commentator: string;
