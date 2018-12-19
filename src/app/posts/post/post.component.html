@@ -9,9 +9,30 @@
   <div class="post__content">  <!-- Post content section -->
     <span>
       {{ post.post }}
-      <div class="action" *ngIf="userIsAuthenticated && userId === post.creatorId">
+      <div class="action">
         <!-- TODO - Replace mat-buttons -->
-        <button mat-button color="warn" (click)="onDelete(post.id)">Delete</button>
+
+        <div
+          *ngIf="userIsAuthenticated && userId === post.creatorId"
+          role="delete post"
+          class="action__item action__item--red"
+          (click)="onDelete(post.id)">
+          <fa-icon [icon]="faTrash"></fa-icon>
+        </div>
+        <div
+          *ngIf="userIsAuthenticated && userId !== post.creatorId"
+          role="thumbs up"
+           class="action__item action__item--green"
+           (click)="onThumbsUp(post.id)">
+          <fa-icon [icon]="faThumbsUp"></fa-icon>
+        </div>
+        <div
+          *ngIf="userIsAuthenticated && userId !== post.creatorId"
+          role="thumbs down"
+           class="action__item action__item--red"
+           (click)="onThumbsDown(post.id)">
+          <fa-icon [icon]="faThumbsDown"></fa-icon>
+        </div>
       </div>
     </span>
   </div>  <!-- Post content section -->
