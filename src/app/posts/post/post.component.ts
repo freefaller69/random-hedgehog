@@ -5,6 +5,9 @@ import { Subscription } from 'rxjs';
 import { Post } from '../post.model';
 import { PostsService } from '../posts.service';
 import { AuthService } from './../../auth/auth.service';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'post',
@@ -21,6 +24,9 @@ export class PostComponent implements OnInit {
   userName: string;
   createCommentForm: FormGroup;
   private authStatusSubs: Subscription;
+  faTrash = faTrashAlt;
+  faThumbsUp = faThumbsUp;
+  faThumbsDown = faThumbsDown;
 
   constructor(
     public postsService: PostsService,
@@ -66,6 +72,16 @@ export class PostComponent implements OnInit {
   onDeleteComment(e) {
     this.post.comments.splice(e.index, 1);
     this.postsService.deleteComment(this.post.id, e.id);
+  }
+
+  onThumbsUp(postId: string) {
+    console.log('Thumbs up works!');
+    console.log(postId);
+  }
+
+  onThumbsDown(postId: string) {
+    console.log('Thumbs down works!');
+    console.log(postId);
   }
 
   ngOnDestroy(): void {

@@ -1,0 +1,19 @@
+.action {
+  display: flex;
+  justify-content: flex-end;
+
+  &__item {
+    padding: 0.5rem;
+    margin-left: 1rem;
+    font-size: 2rem;
+    cursor: pointer;
+
+    &--red {
+      color: var(--invalid-primary);
+    }
+
+    &--green {
+      color: var(--green-light);
+    }
+  }
+}
