@@ -38,6 +38,7 @@ export class AuthService {
   }
 
   getUserName() {
+    console.log('authservice username', this.userName);
     return this.userName;
   }
 
@@ -56,14 +57,15 @@ export class AuthService {
   login(user) {
     this.http.post<{ token: string, expiresIn: number, userId: string, userName: string }>(BACKEND_URL + '/login', user)
       .subscribe(response => {
+        console.log('response from server', response);
         const token = response.token;
         this.token = token;
         if (token) {
           const expiresInDuration = response.expiresIn;
           this.setAuthTimer(expiresInDuration);
           this.isAuthenticated = true;
-          this.userId = response.userId,
-          this.userName = response.userName
+          this.userId = response.userId;
+          this.userName = response.userName;
           this.authStatusListener.next(true);
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
@@ -84,6 +86,7 @@ export class AuthService {
       this.token = authInformation.token;
       this.isAuthenticated = true;
       this.userId = authInformation.userId;
+      this.userName = authInformation.userName;
       this.setAuthTimer(expiresIn / 1000);
       this.authStatusListener.next(true);
     }

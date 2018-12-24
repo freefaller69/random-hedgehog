@@ -27,6 +27,8 @@ export class PostComponent implements OnInit {
   faTrash = faTrashAlt;
   faThumbsUp = faThumbsUp;
   faThumbsDown = faThumbsDown;
+  likes: number = 0;
+  dislikes: number = 0;
 
   constructor(
     public postsService: PostsService,
@@ -36,11 +38,13 @@ export class PostComponent implements OnInit {
   ngOnInit() {
     this.isLoading = true;
     this.userId = this.authService.getUserId();
+    this.userName = this.authService.getUserName();
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSubs = this.authService.getAuthStatusListener()
       .subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.authService.getUserId();
+        this.userName = this.authService.getUserName();
       });
     this.initCommentForm();
     this.isLoading = false;
@@ -75,13 +79,19 @@ export class PostComponent implements OnInit {
   }
 
   onThumbsUp(postId: string) {
-    console.log('Thumbs up works!');
-    console.log(postId);
+    this.postsService.socialAction(postId, 'up');
+    this.post.likes++;
+    this.post.likedBy.push(this.userName);
+    this.likes = this.post.likedBy.length;
+    console.log(this.post.likedBy);
   }
 
   onThumbsDown(postId: string) {
-    console.log('Thumbs down works!');
-    console.log(postId);
+    this.postsService.socialAction(postId, 'down');
+    this.post.dislikes++;
+    this.post.dislikedBy.push(this.userName);
+    this.dislikes = this.post.dislikedBy.length;
+    console.log(this.post.dislikedBy);
   }
 
   ngOnDestroy(): void {

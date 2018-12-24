@@ -25,6 +25,8 @@
            class="action__item action__item--green"
            (click)="onThumbsUp(post.id)">
           <fa-icon [icon]="faThumbsUp"></fa-icon>
+          {{ likes }}
+          {{ post.likedBy }}
         </div>
         <div
           *ngIf="userIsAuthenticated && userId !== post.creatorId"
@@ -32,6 +34,8 @@
            class="action__item action__item--red"
            (click)="onThumbsDown(post.id)">
           <fa-icon [icon]="faThumbsDown"></fa-icon>
+          {{ dislikes }}
+          {{ post.dislikedBy }}
         </div>
       </div>
     </span>

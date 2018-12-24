@@ -34,6 +34,10 @@ export class PostsService {
             comments: post.comments,
             creatorId: post.creator._id,
             creator: post.creator.username,
+            likes: post.likes,
+            likedBy: post.likedBy,
+            dislikes: post.dislikes,
+            dislikedBy: post.dislikedBy,
             created_at: post.created_at
           };
         }),
@@ -116,5 +120,10 @@ export class PostsService {
           postCount: this.totalPosts
         });
       })
+  }
+
+  socialAction(id, action) {
+    console.log('social action on ', id);
+    console.log('social action type ', action);
   }
 }

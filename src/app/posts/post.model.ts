@@ -1,3 +1,4 @@
+import { AuthData } from './../auth/auth.model';
 export interface Post {
   id: string;
   post: string;
@@ -8,6 +9,10 @@ export interface Post {
   creatorId?: string;
   creator?: string;
   created?: number;
+  likes: number;
+  likedBy: string[];
+  dislikes: number;
+  dislikedBy: string[];
 }
 
 export interface Comment {
