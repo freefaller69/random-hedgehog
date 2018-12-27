@@ -23,7 +23,7 @@
           *ngIf="userIsAuthenticated && userId !== post.creatorId"
           role="thumbs up"
            class="action__item action__item--green"
-           (click)="onThumbsUp(post.id)">
+           (click)="onVote(post.id, 'up')">
           <fa-icon [icon]="faThumbsUp"></fa-icon>
           {{ likes }}
           {{ post.likedBy }}
@@ -32,7 +32,7 @@
           *ngIf="userIsAuthenticated && userId !== post.creatorId"
           role="thumbs down"
            class="action__item action__item--red"
-           (click)="onThumbsDown(post.id)">
+           (click)="onVote(post.id, 'down')">
           <fa-icon [icon]="faThumbsDown"></fa-icon>
           {{ dislikes }}
           {{ post.dislikedBy }}

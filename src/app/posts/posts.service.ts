@@ -34,9 +34,7 @@ export class PostsService {
             comments: post.comments,
             creatorId: post.creator._id,
             creator: post.creator.username,
-            likes: post.likes,
             likedBy: post.likedBy,
-            dislikes: post.dislikes,
             dislikedBy: post.dislikedBy,
             created_at: post.created_at
           };
@@ -96,6 +94,24 @@ export class PostsService {
           postCount: this.totalPosts
         });
       })
+  }
+
+  postSocialAction(id: string, postIndex: number, voteType: string) {
+    const socialData = {
+      id: id,
+      postIndex: postIndex,
+      voteType: voteType
+    }
+    this.http.put<{ message: string }>(BACKEND_URL + '/social', socialData)
+      .subscribe((responseData) => {
+        console.log(responseData);
+        // const comment = responseData.comment;
+        // this.posts[postIndex].comments.push(comment);
+        this.postsUpdated.next({
+          posts: [...this.posts],
+          postCount: this.totalPosts
+        });
+      });
   }
 
   deletePost(postId: string) {

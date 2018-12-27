@@ -46,7 +46,9 @@ export class PostComponent implements OnInit {
         this.userId = this.authService.getUserId();
         this.userName = this.authService.getUserName();
       });
-    this.initCommentForm();
+      this.initCommentForm();
+    this.likes = this.post.likedBy.length;
+    this.dislikes = this.post.dislikedBy.length;
     this.isLoading = false;
   }
 
@@ -78,20 +80,34 @@ export class PostComponent implements OnInit {
     this.postsService.deleteComment(this.post.id, e.id);
   }
 
-  onThumbsUp(postId: string) {
-    this.postsService.socialAction(postId, 'up');
-    this.post.likes++;
-    this.post.likedBy.push(this.userName);
-    this.likes = this.post.likedBy.length;
-    console.log(this.post.likedBy);
-  }
-
-  onThumbsDown(postId: string) {
-    this.postsService.socialAction(postId, 'down');
-    this.post.dislikes++;
-    this.post.dislikedBy.push(this.userName);
-    this.dislikes = this.post.dislikedBy.length;
-    console.log(this.post.dislikedBy);
+  // TODO - refactor the onVote method
+  onVote(postId: string, voteType: string) {
+    const hasVotedUp = this.post.likedBy.indexOf(this.userName);
+    const hasVotedDown = this.post.dislikedBy.indexOf(this.userName);
+    if (voteType === 'up') {
+      if (hasVotedUp > -1) {
+        this.post.likedBy.splice(hasVotedUp, 1);
+      } else if (hasVotedDown > -1) {
+        this.post.dislikedBy.splice(hasVotedDown, 1);
+        this.dislikes = this.post.dislikedBy.length;
+        this.post.likedBy.push(this.userName);
+      } else {
+        this.post.likedBy.push(this.userName);
+      }
+      this.likes = this.post.likedBy.length;
+    } else {
+      if (hasVotedDown > -1) {
+        this.post.dislikedBy.splice(hasVotedDown, 1);
+      } else if (hasVotedUp > -1) {
+        this.post.likedBy.splice(hasVotedUp, 1);
+        this.likes = this.post.likedBy.length;
+        this.post.dislikedBy.push(this.userName);
+      } else {
+        this.post.dislikedBy.push(this.userName);
+      }
+      this.dislikes = this.post.dislikedBy.length;
+    }
+    this.postsService.postSocialAction(postId, this.postIndex, voteType);
   }
 
   ngOnDestroy(): void {

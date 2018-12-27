@@ -38,7 +38,6 @@ export class AuthService {
   }
 
   getUserName() {
-    console.log('authservice username', this.userName);
     return this.userName;
   }
 
@@ -57,7 +56,6 @@ export class AuthService {
   login(user) {
     this.http.post<{ token: string, expiresIn: number, userId: string, userName: string }>(BACKEND_URL + '/login', user)
       .subscribe(response => {
-        console.log('response from server', response);
         const token = response.token;
         this.token = token;
         if (token) {
