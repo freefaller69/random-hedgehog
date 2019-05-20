@@ -47,9 +47,7 @@ export class PostCreateComponent implements OnInit {
       username: null,
       created_at: null,
       post: this.createPostForm.value.post,
-      likes: 0,
       likedBy: [],
-      dislikes: 0,
       dislikedBy: []
     }
     this.postsService.addPost(post);

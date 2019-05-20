@@ -9,9 +9,7 @@ export interface Post {
   creatorId?: string;
   creator?: string;
   created?: number;
-  likes: number;
   likedBy: string[];
-  dislikes: number;
   dislikedBy: string[];
 }
 
