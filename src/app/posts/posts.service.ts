@@ -75,7 +75,7 @@ export class PostsService {
           posts: [...this.posts],
           postCount: this.totalPosts
         });
-      })
+      });
   }
 
   addComment(id: string, comment: string, postIndex: number) {
@@ -91,7 +91,7 @@ export class PostsService {
           posts: [...this.posts],
           postCount: this.totalPosts
         });
-      })
+      });
   }
 
   deletePost(postId: string) {
@@ -115,6 +115,6 @@ export class PostsService {
           posts: [...this.posts],
           postCount: this.totalPosts
         });
-      })
+      });
   }
 }

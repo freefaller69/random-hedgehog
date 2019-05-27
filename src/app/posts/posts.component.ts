@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PageEvent } from '@angular/material';
 import { Subscription } from 'rxjs';
@@ -8,11 +8,12 @@ import { AuthService } from './../auth/auth.service';
 import { PostsService } from './posts.service';
 
 @Component({
+// tslint:disable-next-line: component-selector
   selector: 'posts',
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.scss']
 })
-export class PostsComponent implements OnInit {
+export class PostsComponent implements OnInit, OnDestroy {
   isLoading = false;
   posts: Post[] = [];
   totalPosts = 0;
