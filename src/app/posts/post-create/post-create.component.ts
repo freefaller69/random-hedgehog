@@ -7,6 +7,7 @@ import { Post } from '../post.model';
 import { PostsService } from './../posts.service';
 
 @Component({
+  // tslint:disable-next-line: component-selector
   selector: 'post-create',
   templateUrl: './post-create.component.html',
   styleUrls: ['./post-create.component.scss']
@@ -47,7 +48,7 @@ export class PostCreateComponent implements OnInit {
       username: null,
       created_at: null,
       post: this.createPostForm.value.post
-    }
+    };
     this.postsService.addPost(post);
     this.createPostForm.reset();
   }
