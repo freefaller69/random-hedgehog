@@ -13,7 +13,7 @@ import { PostsService } from './../posts.service';
 })
 export class PostCreateComponent implements OnInit {
   createPostForm: FormGroup;
-  @ViewChild('autosize') autosize: CdkTextareaAutosize;
+  @ViewChild('autosize', { static: true }) autosize: CdkTextareaAutosize;
 
   constructor(
     public postsService: PostsService,
