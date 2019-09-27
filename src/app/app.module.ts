@@ -16,6 +16,7 @@ import { PostsModule } from './posts/posts.module';
 import { metaReducers, reducers } from './reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './app.effects';
+import { StoreRouterConnectingModule, RouterState } from '@ngrx/router-store';
 
 @NgModule({
   declarations: [
@@ -34,11 +35,17 @@ import { AppEffects } from './app.effects';
       metaReducers,
       runtimeChecks: {
         strictStateImmutability: true,
-        strictActionImmutability: true
+        strictActionImmutability: true,
+        strictActionSerializability: true,
+        strictStateSerializability: true
       }
     }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([AppEffects])
+    EffectsModule.forRoot([AppEffects]),
+    StoreRouterConnectingModule.forRoot({
+      stateKey: 'router',
+      routerState: RouterState.Minimal
+    })
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
