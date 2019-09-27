@@ -14,6 +14,8 @@ import { AuthModule } from './auth/auth.module';
 import { HeaderComponent } from './header/header.component';
 import { PostsModule } from './posts/posts.module';
 import { metaReducers, reducers } from './reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { AppEffects } from './app.effects';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { metaReducers, reducers } from './reducers';
         strictActionImmutability: true
       }
     }),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    EffectsModule.forRoot([AppEffects])
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

@@ -4,10 +4,10 @@
   </div>
   <div class="header">
     <ul class="menu">
-      <li *ngIf="userIsAuthenticated" class="menu menu_item"><a mat-button routerLink="/posts">Home</a></li>
-      <li *ngIf="!userIsAuthenticated" class="menu menu_item"><a mat-button routerLink="/login">Login</a></li>
-      <li *ngIf="!userIsAuthenticated" class="menu menu_item"><a mat-button routerLink="/signup">Signup</a></li>
-      <li *ngIf="userIsAuthenticated"><button mat-button (click)='onLogout()'>Logout</button></li>
+      <li *ngIf="isLoggedIn$ | async" class="menu menu_item"><a mat-button routerLink="/posts">Home</a></li>
+      <li *ngIf="isLoggedOut$ | async" class="menu menu_item"><a mat-button routerLink="/login">Login</a></li>
+      <li *ngIf="isLoggedOut$ | async" class="menu menu_item"><a mat-button routerLink="/signup">Signup</a></li>
+      <li *ngIf="isLoggedIn$ | async"><button mat-button (click)='onLogout()'>Logout</button></li>
     </ul>
   </div>
 </mat-toolbar>

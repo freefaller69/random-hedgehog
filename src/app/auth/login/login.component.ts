@@ -5,6 +5,7 @@ import { AuthData } from '../auth.model';
 import { AuthService } from './../auth.service';
 
 @Component({
+  // tslint:disable-next-line: component-selector
   selector: 'login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
@@ -39,15 +40,17 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  login() {
+    const user = this.loginForm.value;
+    this.authService.login(user);
+  }
+
   onLogin() {
     if (this.loginForm.invalid) {
       return;
     }
     this.isLoading = true;
-    const user: AuthData = {
-      email: this.loginForm.value.email,
-      password: this.loginForm.value.password
-    }
+    const user: AuthData = this.loginForm.value;
     this.authService.login(user);
   }
 

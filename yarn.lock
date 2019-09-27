@@ -104,12 +104,31 @@
     rxjs "6.4.0"
     source-map "0.7.3"
 
+"@angular-devkit/core@8.3.6":
+  version "8.3.6"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-8.3.6.tgz#6ad4787e3cb8b03234a194dd53e12cf054a4169c"
+  integrity sha512-kf4ViwjxERlyAnnrbenaUzPr0muixCyupzyiJ2RIuenK3ob9t1fnAsaugZt+Gfo54i3NgfBMKu1xNwnTR7HnAw==
+  dependencies:
+    ajv "6.10.2"
+    fast-json-stable-stringify "2.0.0"
+    magic-string "0.25.3"
+    rxjs "6.4.0"
+    source-map "0.7.3"
+
 "@angular-devkit/schematics@8.3.5":
   version "8.3.5"
   resolved "https://registry.yarnpkg.com/@angular-devkit/schematics/-/schematics-8.3.5.tgz#d2db54c7226a338fa101ab2eb09ea0231285c87d"
   integrity sha512-RMtM10kS+Docg90jzFMa4HQ+UzX95Gi5rCT/kSydEkBhp+Jeu/B0K2y67Fm2/qTdVNRCujrCpEmtiRcp1qsOQg==
   dependencies:
     "@angular-devkit/core" "8.3.5"
+    rxjs "6.4.0"
+
+"@angular-devkit/schematics@^8.3.6":
+  version "8.3.6"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/schematics/-/schematics-8.3.6.tgz#9a21a090208398a70e87d24a66e8d147f14713e0"
+  integrity sha512-5I4WDIMHw8zuajhXdy2xjtJLglMWE2Bo1Ri4wFR8cmj8nXUQ1fdPMWg3CqiepcNls2c8xXXMBMHZb/FhC32sBw==
+  dependencies:
+    "@angular-devkit/core" "8.3.6"
     rxjs "6.4.0"
 
 "@angular/animations@^8.2.8":
@@ -1001,6 +1020,16 @@
   integrity sha512-5tF6WOFlqqO95zY5ukSB6jliDa3jnk1p5L4K/a58ccDFsbjSkhfGuvZkRkeWxH8uMms81pZd6yQTwQrkedeJmg==
   dependencies:
     "@fortawesome/fontawesome-common-types" "^0.2.18"
+
+"@ngrx/effects@^8.3.0":
+  version "8.3.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-8.3.0.tgz#d99a777ab352d4efdf456a7dec307514187ba496"
+  integrity sha512-/DdBqCFpHOJZUAmIpefQ8EVwmJXXkcEdLhsV8aXncCNWkK61sy/MbZZfDAbee6Cd1is33bVXRUKD49Z+Upvw5A==
+
+"@ngrx/schematics@^8.3.0":
+  version "8.3.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/schematics/-/schematics-8.3.0.tgz#0a8dab6ed859e28a9acd06399040e6ac54f04701"
+  integrity sha512-18wyj0bOudF+RW6SCuPBVjMNeUgY9uWD+d481xCQ43VttamRAIsmNPmb9e1N/96Kte/HaotF5LNjw3mj/dU7QQ==
 
 "@ngrx/store-devtools@^8.3.0":
   version "8.3.0"
