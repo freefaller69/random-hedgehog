@@ -17,6 +17,7 @@ import { metaReducers, reducers } from './reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './app.effects';
 import { StoreRouterConnectingModule, RouterState } from '@ngrx/router-store';
+import { EntityDataModule } from '@ngrx/data';
 
 @NgModule({
   declarations: [
@@ -42,10 +43,12 @@ import { StoreRouterConnectingModule, RouterState } from '@ngrx/router-store';
     }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([AppEffects]),
+    EntityDataModule.forRoot({}),
     StoreRouterConnectingModule.forRoot({
       stateKey: 'router',
       routerState: RouterState.Minimal
-    })
+    }),
+    EntityDataModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
