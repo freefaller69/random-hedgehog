@@ -51,9 +51,7 @@ export class PostCreateComponent implements OnInit {
       created_at: null,
       post: this.createPostForm.value.post
     };
-    this.postsEntityService.add(post).subscribe(newPost => {
-      console.log(newPost);
-    });
+    this.postsEntityService.add(post).subscribe();
     this.createPostForm.reset();
   }
 

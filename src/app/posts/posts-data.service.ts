@@ -29,7 +29,6 @@ export class PostsDataService extends DefaultDataService<Post> {
   getAll(): Observable<Post[]> {
     return this.http.get<{ message: string, posts: any, maxPosts: number }>(BACKEND_URL).pipe(
       map(postData => {
-        console.log('postData', postData);
         return postData.posts.map(post => {
           return {
             post: post.post,
@@ -42,7 +41,6 @@ export class PostsDataService extends DefaultDataService<Post> {
           };
         });
       }),
-      tap(mappedData => console.log('mappedData', mappedData))
     );
   }
 
