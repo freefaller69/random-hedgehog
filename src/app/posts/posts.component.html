@@ -1,2 +1,2 @@
 <post-create></post-create>
-<post *ngFor="let post of posts; index as i" [post]='post' [userIsAuthenticated]='userIsAuthenticated' [postIndex]='i'></post>
+<post *ngFor="let post of posts$ | async; index as i" [post]='post' [userIsAuthenticated]='userIsAuthenticated' [postIndex]='i'></post>

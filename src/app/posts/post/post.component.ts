@@ -8,6 +8,7 @@ import { AuthService } from './../../auth/auth.service';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import { faThumbsDown } from '@fortawesome/free-solid-svg-icons';
+import { PostEntityService } from '../post-entity.service';
 
 @Component({
 // tslint:disable-next-line: component-selector
@@ -31,6 +32,7 @@ export class PostComponent implements OnInit, OnDestroy {
 
   constructor(
     public postsService: PostsService,
+    private postsEntityService: PostEntityService,
     private authService: AuthService
   ) { }
 
@@ -67,7 +69,7 @@ export class PostComponent implements OnInit, OnDestroy {
   }
 
   onDelete(postId: string) {
-    this.postsService.deletePost(postId);
+    this.postsEntityService.delete(this.post);
   }
 
   onDeleteComment(e) {

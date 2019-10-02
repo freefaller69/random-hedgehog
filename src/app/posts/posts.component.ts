@@ -1,11 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
-import { Post } from './post.model';
 import { AuthService } from './../auth/auth.service';
-import { PostsService } from './posts.service';
+import { PostEntityService } from './post-entity.service';
+import { Post } from './post.model';
 
 @Component({
 // tslint:disable-next-line: component-selector
@@ -14,6 +14,7 @@ import { PostsService } from './posts.service';
   styleUrls: ['./posts.component.scss']
 })
 export class PostsComponent implements OnInit, OnDestroy {
+  posts$: Observable<Post[]>;
   isLoading = false;
   posts: Post[] = [];
   totalPosts = 0;
@@ -22,38 +23,34 @@ export class PostsComponent implements OnInit, OnDestroy {
   pageSizeOptions = [5, 10, 25, 50];
   userIsAuthenticated = false;
   createCommentForm: FormGroup;
-  private postsSub: Subscription;
   private authStatusSubs: Subscription;
 
   constructor(
-    public postsService: PostsService,
+    private postsEntityService: PostEntityService,
     private authService: AuthService
   ) { }
 
   ngOnInit() {
     this.isLoading = true;
-    this.postsService.getPosts(this.postsPerPage, this.currentPage);
-    this.postsSub = this.postsService.getPostUpdatedListener()
-      .subscribe((postData: { posts: Post[], postCount: number }) => {
-        this.isLoading = false;
-        this.totalPosts = postData.postCount;
-        this.posts = postData.posts;
-      });
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSubs = this.authService.getAuthStatusListener()
       .subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
       });
+
+    this.reload();
+  }
+
+  reload() {
+    this.posts$ = this.postsEntityService.entities$;
   }
 
   onChangedPage(pageData: PageEvent) {
     this.currentPage = pageData.pageIndex + 1;
     this.postsPerPage = pageData.pageSize;
-    this.postsService.getPosts(this.postsPerPage, this.currentPage);
   }
 
   ngOnDestroy() {
-    this.postsSub.unsubscribe();
     this.authStatusSubs.unsubscribe();
   }
 

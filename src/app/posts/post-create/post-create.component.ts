@@ -5,6 +5,7 @@ import { take } from 'rxjs/operators';
 
 import { Post } from '../post.model';
 import { PostsService } from './../posts.service';
+import { PostEntityService } from '../post-entity.service';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -18,6 +19,7 @@ export class PostCreateComponent implements OnInit {
 
   constructor(
     public postsService: PostsService,
+    private postsEntityService: PostEntityService,
     private ngZone: NgZone
   ) { }
 
@@ -49,7 +51,9 @@ export class PostCreateComponent implements OnInit {
       created_at: null,
       post: this.createPostForm.value.post
     };
-    this.postsService.addPost(post);
+    this.postsEntityService.add(post).subscribe(newPost => {
+      console.log(newPost);
+    });
     this.createPostForm.reset();
   }
 
