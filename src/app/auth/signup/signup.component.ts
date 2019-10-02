@@ -53,7 +53,7 @@ export class SignupComponent implements OnInit {
       email: this.signupForm.value.email,
       username: this.signupForm.value.username,
       password: this.signupForm.value.password
-    }
+    };
     this.authService.createUser(user);
     this.isLoading = true;
   }

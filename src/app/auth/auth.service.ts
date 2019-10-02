@@ -6,6 +6,10 @@ import { AuthData } from './auth.model';
 import { EmailValidator } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { AppState } from '../reducers';
+import { login, logout } from './auth.actions';
 
 const BACKEND_URL = environment.apiUrl + '/user';
 
@@ -22,7 +26,8 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private store: Store<AppState>
   ) { }
 
   getToken() {
@@ -54,7 +59,15 @@ export class AuthService {
   }
 
   login(user) {
-    this.http.post<{ token: string, expiresIn: number, userId: string, userName: string }>(BACKEND_URL + '/login', user)
+    this.http.post<{ token: string, expiresIn: number, userId: string, userName: string }>(BACKEND_URL + '/login', user).pipe(
+      tap(userData => {
+        user = {
+          userName: userData.userName,
+          userId: userData.userId
+        };
+        this.store.dispatch(login({ user }));
+      })
+    )
       .subscribe(response => {
         const token = response.token;
         this.token = token;
@@ -63,7 +76,7 @@ export class AuthService {
           this.setAuthTimer(expiresInDuration);
           this.isAuthenticated = true;
           this.userId = response.userId,
-          this.userName = response.userName
+          this.userName = response.userName;
           this.authStatusListener.next(true);
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
@@ -90,6 +103,7 @@ export class AuthService {
   }
 
   logout() {
+    this.store.dispatch(logout());
     this.token = null;
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
@@ -133,6 +147,6 @@ export class AuthService {
       expirationDate: new Date(expirationDate),
       userId: userId,
       userName: userName
-    }
+    };
   }
 }
